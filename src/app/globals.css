@@ -12,8 +12,10 @@
   --color-secondary: var(--secondary);
   --color-tertiary: var(--tertiary);
   --color-black: var(--black);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-instrument-serif: var(--font-instrument-serif);
+  --font-instrument-sans: var(--font-instrument-sans);
+  --font-inter: var(--font-inter);
+  --font-shrikhand: var(--font-shrikhand);
 }
 
 @media (prefers-color-scheme: dark) {
