@@ -1,15 +1,23 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Instrument_Serif, Instrument_Sans, Inter, Shrikhand } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const instrumentSerif = Instrument_Serif({
+    weight: "400",
+    variable: "--font-instrument-serif",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const instrumentSans = Instrument_Sans({
+    variable: "--font-instrument-sans",
+});
+
+const inter = Inter({
+    variable: "--font-inter",
+});
+
+const shrikhand = Shrikhand({
+    weight: "400",
+    variable: "--font-shrikhand",
 });
 
 export const metadata: Metadata = {
@@ -25,7 +33,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${instrumentSerif.variable} ${instrumentSans.variable} ${inter.variable} ${shrikhand.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
