@@ -21,17 +21,17 @@ export default function Footer() {
                 </Link>
 
                 <div className="flex gap-6 font-instrument-sans">
-                    <Link href="https://github.com/BleuSkell" className="flex items-center gap-2">
+                    <Link href="https://github.com/BleuSkell" target="_blank" className="flex items-center gap-2">
                         <Image src={github} alt="github logo"/>
                         <p className="hover:text-tertiary transition-all duration-200">BleuSkell</p>
                     </Link>
 
-                    <Link href="https://instagram.com/seervska" className="flex items-center gap-2">
+                    <Link href="https://instagram.com/seervska" target="_blank" className="flex items-center gap-2">
                         <Image src={instagram} alt="instagram logo"/>
                         <p className="hover:text-tertiary transition-all duration-200">@seervska</p>
                     </Link>
 
-                    <Link href="https://youtube.com/@SEERVS" className="flex items-center gap-2">
+                    <Link href="https://youtube.com/@SEERVS" target="_blank" className="flex items-center gap-2">
                         <Image src={youtube} alt="youtube logo"/>
                         <p className="hover:text-tertiary transition-all duration-200">@SEERVS</p>
                     </Link>
