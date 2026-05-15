@@ -1,8 +1,8 @@
-import Image from "next/image";
-import Link from "next/link";
-import "@/components/components-css/nav.css";
+import Image from "next/image"
+import Link from "next/link"
+import "@/components/components-css/animated-underline.css"
 
-import star from "public/star.png";
+import star from "public/star.png"
 
 export default function Nav() {
     return (

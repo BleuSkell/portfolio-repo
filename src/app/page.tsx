@@ -1,4 +1,5 @@
-import Nav from "@/components/nav";
+import Nav from "@/components/nav"
+import Footer from "@/components/footer"
 
 export default function Home() {
     return (
@@ -6,6 +7,8 @@ export default function Home() {
             <Nav/>
 
             <main></main>
+
+            <Footer/>
         </div>
     );
 }
