@@ -1,12 +1,13 @@
-import Image from "next/image";
 import Nav from "@/components/nav";
 
-export default function Home() {
+export default function ContactPage() {
     return (
         <div className="flex flex-col flex-1 items-center justify-center bg-primary font-sans">
             <Nav/>
 
-            <main></main>
+            <main>
+                <h1>Contact page</h1>
+            </main>
         </div>
-    );
+    )
 }
