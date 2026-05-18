@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Instrument_Serif, Instrument_Sans, Inter, Shrikhand } from "next/font/google";
 import "./globals.css";
+import LoadingScreen from "@/components/loading-screen";
 
 const instrumentSerif = Instrument_Serif({
     weight: "400",
@@ -35,7 +36,10 @@ export default function RootLayout({
       lang="en"
       className={`${instrumentSerif.variable} ${instrumentSans.variable} ${inter.variable} ${shrikhand.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <LoadingScreen/>
+        {children}
+      </body>
     </html>
   );
 }
