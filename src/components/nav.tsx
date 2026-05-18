@@ -1,54 +1,153 @@
-import Image from "next/image"
-import Link from "next/link"
-import "@/components/components-css/animated-underline.css"
+"use client"
+import { useState } from "react";
+import { Menu } from "lucide-react";
+
+import Image from "next/image";
+import Link from "next/link";
+import "@/components/components-css/animated-underline.css";
+import "@/components/components-css/nav.css";
 
 import star from "public/star.png"
 
 export default function Nav() {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isStarOpen, setIsStarOpen] = useState(false);
+    const [isLineDown, setIsLineDown] = useState(false);
+    const [isLineUp, setIsLineUp] = useState(false);
+    const [isSlideInSide, setIsSlideInSide] = useState(false);
+    const [isSlideSideReverse, setIsSlideSideReverse] = useState(false);
+
+
+    const handleMenuToggle = () => {
+        if (!isMenuOpen) {
+            setIsMenuOpen(true)
+            setIsStarOpen(true)
+
+            // reset animation states
+            setIsLineUp(false)
+            setIsSlideSideReverse(false)
+
+            setTimeout(() => {
+                setIsLineDown(true)
+
+                setTimeout(() => {
+                    setIsSlideInSide(true)
+                }, 300)
+            }, 100)
+        } else {
+            setIsSlideSideReverse(true)
+            setTimeout(() => {
+                setIsLineUp(true)
+
+                setTimeout(() => {
+                    setIsStarOpen(false)
+
+                    setTimeout(() => {
+                        setIsMenuOpen(false)
+                    }, 200)
+                }, 80)
+            }, 200)
+        }
+    }
+
     return (
-        <nav className="flex flex-col fixed t-0 l-0 items-center
-            text-tertiary font-instrument-serif text-2xl
-            w-full p-6
-        ">
-            <div>
-                <div className="flex flex-row gap-12">
-                    <Link
-                        href="/"
-                        className="animated-underline"
-                    >
-                        Home
-                    </Link>
+        <>
+            <nav className="lg:hidden flex flex-col items-center fixed t-0 l-0 p-2">
+                <button onClick={handleMenuToggle} className="cursor-pointer flex gap-2 items-center pb-2 text-tertiary font-instrument-serif text-xl">
+                    { isMenuOpen
+                        ? <Image src={star} alt="star" className={`${isStarOpen ? "mobile-star-open" : "mobile-star-close"} w-10 h-10`}/>
+                        : <Menu className={`w-10 h-10`}/>
+                    }
+                    Menu
+                </button>
 
-                    <Link
-                        href="/projects"
-                        className="animated-underline"
-                    >
-                        Projects
-                    </Link>
+                <div className={`${isMenuOpen ? "flex" : "hidden"} flex-row gap-2 ml-[14px]`}>
+                    <hr className={`${isLineDown && !isLineUp ? "animate-line-down" 
+                        : isLineUp ? "animate-line-up"
+                        : "opacity-0"}
+                        w-[2px] h-[160px] bg-tertiary
+                    `}/>
 
-                    <Link
-                        href="/about"
-                        className="animated-underline"
-                    >
-                        About
-                    </Link>
+                    <div className={`${isSlideInSide && !isSlideSideReverse ? "slide-sideways"
+                        : isSlideSideReverse ? "slide-sideways-reverse" 
+                        : "opacity-0"}
+                        flex flex-col gap-4 text-tertiary font-instrument-serif text-xl
+                    `}>
+                        <Link
+                            href="/"
+                            className="animated-underline w-fit"
+                        >
+                            Home
+                        </Link>
 
-                    <Link
-                        href="/contact"
-                        className="animated-underline"
-                    >
-                        Contact
-                    </Link>
+                        <Link
+                            href="/projects"
+                            className="animated-underline w-fit"
+                        >
+                            Projects
+                        </Link>
+
+                        <Link
+                            href="/about"
+                            className="animated-underline w-fit"
+                        >
+                            About
+                        </Link>
+
+                        <Link
+                            href="/contact"
+                            className="animated-underline w-fit"
+                        >
+                            Contact
+                        </Link>
+                    </div>
                 </div>
+            </nav>
 
-                <div className="flex flex-row items-center gap-4 w-full relative top-[-20px] pointer-events-none">
-                    <hr className="w-full"/>
+            <nav className="hidden lg:flex flex-col fixed t-0 l-0 items-center
+                text-tertiary font-instrument-serif text-2xl
+                w-full p-6
+            ">
+                <div>
+                    <div className="flex flex-row gap-12">
+                        <Link
+                            href="/"
+                            className="animated-underline"
+                        >
+                            Home
+                        </Link>
 
-                    <Image src={star} alt="navigation star" className="w-12 h-12"/>
+                        <Link
+                            href="/projects"
+                            className="animated-underline"
+                        >
+                            Projects
+                        </Link>
 
-                    <hr className="w-full"/>
+                        <Link
+                            href="/about"
+                            className="animated-underline"
+                        >
+                            About
+                        </Link>
+
+                        <Link
+                            href="/contact"
+                            className="animated-underline"
+                        >
+                            Contact
+                        </Link>
+                    </div>
+
+                    <div className="flex flex-row items-center gap-4 w-full relative top-[-20px] pointer-events-none">
+                        <hr className="w-full"/>
+
+                        <Image src={star} alt="navigation star" className="w-12 h-12"/>
+
+                        <hr className="w-full"/>
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
+        </>
     )
 }
