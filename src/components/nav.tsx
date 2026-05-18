@@ -14,33 +14,39 @@ export default function Nav() {
     const [isStarOpen, setIsStarOpen] = useState(false);
     const [isLineDown, setIsLineDown] = useState(false);
     const [isLineUp, setIsLineUp] = useState(false);
-    const [isSlideSide, setIsSlideSide] = useState(false);
+    const [isSlideInSide, setIsSlideInSide] = useState(false);
     const [isSlideSideReverse, setIsSlideSideReverse] = useState(false);
 
 
     const handleMenuToggle = () => {
         if (!isMenuOpen) {
-            setIsMenuOpen(true);
-            setIsStarOpen(true);
+            setIsMenuOpen(true)
+            setIsStarOpen(true)
+
+            // reset animation states
+            setIsLineUp(false)
+            setIsSlideSideReverse(false)
 
             setTimeout(() => {
-                setIsLineDown(true);
+                setIsLineDown(true)
 
                 setTimeout(() => {
-                    setIsSlideSide(true);
+                    setIsSlideInSide(true)
                 }, 300)
-            }, 200)
+            }, 100)
         } else {
-            setIsSlideSide(false);
-
+            setIsSlideSideReverse(true)
             setTimeout(() => {
-                setIsLineDown(false);
-                setIsStarOpen(false);
+                setIsLineUp(true)
 
                 setTimeout(() => {
-                    setIsMenuOpen(false);
-                }, 200)
-            }, 300)
+                    setIsStarOpen(false)
+
+                    setTimeout(() => {
+                        setIsMenuOpen(false)
+                    }, 200)
+                }, 80)
+            }, 200)
         }
     }
 
@@ -48,14 +54,25 @@ export default function Nav() {
         <>
             <nav className="lg:hidden flex flex-col items-center fixed t-0 l-0 p-2">
                 <button onClick={handleMenuToggle} className="cursor-pointer flex gap-2 items-center pb-2 text-tertiary font-instrument-serif text-xl">
-                    { isMenuOpen ? <Image src={star} alt="star" className={`${isStarOpen ? "mobile-star-open" : "mobile-star-close"} w-10 h-10`}/> : <Menu className="mobile-menu w-10 h-10"/> }
+                    { isMenuOpen
+                        ? <Image src={star} alt="star" className={`${isStarOpen ? "mobile-star-open" : "mobile-star-close"} w-10 h-10`}/>
+                        : <Menu className={`w-10 h-10`}/>
+                    }
                     Menu
                 </button>
 
                 <div className={`${isMenuOpen ? "flex" : "hidden"} flex-row gap-2 ml-[14px]`}>
-                    <hr className={`${isLineDown ? "animate-line-down" : "opacity-0"} w-[2px] h-[160px] bg-tertiary`}/>
+                    <hr className={`${isLineDown && !isLineUp ? "animate-line-down" 
+                        : isLineUp ? "animate-line-up"
+                        : "opacity-0"}
+                        w-[2px] h-[160px] bg-tertiary
+                    `}/>
 
-                    <div className={`${isSlideSide ? "slide-sideways" : "opacity-0"} flex flex-col gap-4 text-tertiary font-instrument-serif text-xl`}>
+                    <div className={`${isSlideInSide && !isSlideSideReverse ? "slide-sideways"
+                        : isSlideSideReverse ? "slide-sideways-reverse" 
+                        : "opacity-0"}
+                        flex flex-col gap-4 text-tertiary font-instrument-serif text-xl
+                    `}>
                         <Link
                             href="/"
                             className="animated-underline w-fit"

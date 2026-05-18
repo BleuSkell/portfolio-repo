@@ -1,24 +1,30 @@
 /*star animation*/
 .mobile-star-open {
     animation: rotate .2s linear;
+    opacity: 1;
 }
 @keyframes rotate {
     0% {
+        opacity: .2;
         transform: rotate(0deg);
     }
     100% {
+        opacity: 1;
         transform: rotate(90deg);
     }
 }
 
 .mobile-star-close {
     animation: rotate-reverse .2s linear;
+    opacity: .2;
 }
 @keyframes rotate-reverse {
     0% {
+        opacity: 1;
         transform: rotate(90deg);
     }
     100% {
+        opacity: .2;
         transform: rotate(0deg);
     }
 }
@@ -29,22 +35,26 @@
 }
 @keyframes line-down {
     0% {
+        opacity: 0;
         height: 0;
-
     }
     100% {
+        opacity: 1;
         height: 160px;
     }
 }
 
 .animate-line-up {
-    animation: line-up .3s linear;
+    animation: line-up .2s linear;
+    opacity: 0;
 }
 @keyframes line-up {
     0% {
+        opacity: 1;
         height: 160px;
     }
     100% {
+        opacity: 0;
         height: 0;
     }
 }
@@ -65,7 +75,8 @@
 }
 
 .slide-sideways-reverse {
-    animation: slide-sideways-reverse .3s linear;
+    animation: slide-sideways-reverse .2s linear;
+    opacity: 0;
 }
 @keyframes slide-sideways-reverse {
     0% {
