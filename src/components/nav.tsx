@@ -52,7 +52,7 @@ export default function Nav() {
 
     return (
         <>
-            <nav className="lg:hidden flex flex-col items-center fixed t-0 l-0 p-2">
+            <nav className="lg:hidden flex flex-col items-center fixed t-0 l-0 p-2 z-20">
                 <button onClick={handleMenuToggle} className="cursor-pointer flex gap-2 items-center pb-2 text-tertiary font-instrument-serif text-xl">
                     { isMenuOpen
                         ? <Image src={star} alt="star" className={`${isStarOpen ? "mobile-star-open" : "mobile-star-close"} w-10 h-10`}/>
@@ -106,7 +106,7 @@ export default function Nav() {
 
             <nav className="hidden lg:flex flex-col fixed t-0 l-0 items-center
                 text-tertiary font-instrument-serif text-2xl
-                w-full p-6
+                w-full p-6 z-20
             ">
                 <div>
                     <div className="flex flex-row gap-12">

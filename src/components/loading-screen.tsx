@@ -30,6 +30,8 @@ export default function LoadingScreen() {
 
     const handleReady = () => {
         setLoading(false)
+        sessionStorage.setItem("loadingFinished", "true")
+        window.dispatchEvent(new Event("loaderHidden"))
     }
 
     return (

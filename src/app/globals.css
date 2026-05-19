@@ -5,6 +5,7 @@
   --secondary: #700606;
   --tertiary: #C40C0C;
   --black: #000000;
+  /*--breakpoint-3xl: 120rem;*/
 }
 
 @theme inline {
@@ -16,6 +17,7 @@
   --font-instrument-sans: var(--font-instrument-sans);
   --font-inter: var(--font-inter);
   --font-shrikhand: var(--font-shrikhand);
+  --breakpoint-3xl: 120.063rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -24,6 +26,7 @@
     --secondary: #700606;
     --tertiary: #C40C0C;
     --black: #000000;
+    /*--breakpoint-3xl: 120rem;*/
   }
 }
 
