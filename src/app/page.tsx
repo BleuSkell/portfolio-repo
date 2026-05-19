@@ -10,6 +10,7 @@ import name from "public/pages/home/SEERVS.png"
 import nameBreakCh from "public/pages/home/burnhead-temp.png"
 import helloCh from "public/pages/home/character-temp.png"
 import helloChHand from "public/pages/home/character-hand-temp.png"
+import vector from "public/pages/home/vector.png"
 
 export default function Home() {
     const [shouldAnimate, setShouldAnimate] = useState(false)
@@ -91,7 +92,7 @@ export default function Home() {
                 </section>
 
                 <section>
-
+                    <div className="vector"/>
                 </section>
             </main>
 
