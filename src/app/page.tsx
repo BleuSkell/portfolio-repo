@@ -13,7 +13,9 @@ import helloChHand from "public/pages/home/character-hand-temp.png"
 
 export default function Home() {
     const [shouldAnimate, setShouldAnimate] = useState(false)
-    const [scrollPosition, setScrollPosition] = useState(0)
+    const helloContentRef = useRef<HTMLDivElement>(null)
+    const isVisible = useRef(false)
+    const entryTop = useRef(0)
 
     useEffect(() => {
         if (sessionStorage.getItem("loadingFinished") === "true") {
@@ -26,10 +28,41 @@ export default function Home() {
         return () => window.removeEventListener("loaderHidden", handleLoaderHidden)
     }, [])
 
-    const handleScroll = (e) => {
-        const scrollTop = e.target.scrollTop
-        setScrollPosition(scrollTop)
-    }
+    useEffect(() => {
+        const el = helloContentRef.current;
+        if (!el) return
+
+        const handleScroll = () => {
+            if (!isVisible.current) return
+
+            const scrollY = window.scrollY;
+            const scrolled = scrollY - entryTop.current;
+            const range = 400;
+            const progress = Math.min(Math.max(scrolled / range, 0), 1)
+
+            const translateX = -Math.max(-15 + (-44 * progress), -45)
+            el.style.transform = `translateX(-${translateX}%)`;
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        isVisible.current = true
+                        entryTop.current = window.scrollY
+                    }, 300)
+                }
+            })
+        }, {})
+
+        observer.observe(el)
+        window.addEventListener("scroll", handleScroll)
+
+        return () => {
+            observer.disconnect()
+            window.removeEventListener("scroll", handleScroll)
+        }
+    }, []);
 
     return (
         <div className="flex flex-col bg-primary font-sans">
@@ -44,7 +77,7 @@ export default function Home() {
                 </section>
 
                 <section className="flex justify-end relative p-12">
-                    <div className={`flex items-center absolute right-[29%]`}>
+                    <div className="flex items-center absolute" ref={helloContentRef} style={{ transform: "translateX(-15%)" }}>
                         <div className="flex flex-col gap-2 text-right bg-primary py-38 pr-12">
                             <h3 className="font-shrikhand text-secondary text-4xl">Hello, kipije kabare?</h3>
                             <p className="font-instrument-serif text-xl">I’m Seervs, I’m a third year Software Development student based in the Netherlands. I’m self-taught in both art and the music that I make.</p>
