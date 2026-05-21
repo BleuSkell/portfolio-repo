@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import Nav from "@/components/nav"
 import Footer from "@/components/footer"
 
@@ -37,6 +37,12 @@ export default function Home() {
     // skills selections
     const [softSkillsVisible, setSoftSkillsVisible] = useState(true)
     const [hardSkillsVisible, setHardSkillsVisible] = useState(false)
+
+    // highlighted projects
+    const [selectedProject, setSelectedProject] = useState(0)
+    const projectContainerRef = useRef<HTMLDivElement>(null)
+    const itemRefs = useRef<(HTMLDivElement | null)[]>([])
+
     // hard skill icons
     const hardSkills = [
         {src: js, alt: "Hard skill JavaScript"},
@@ -45,6 +51,14 @@ export default function Home() {
         {src: laravel, alt: "Hard skill Laravel"},
         {src: sql, alt: "Hard skill MySQL"},
         {src: digital, alt: "Hard skill design, art, animation"},
+    ]
+
+    // highlighted projects
+    const projects = [
+        {title: "opads", thumb: albumCover, thumbAlt: "alt text", link: "/projects"},
+        {title: "POM3", thumb: albumCover, thumbAlt: "alt text", link: "/projects"},
+        {title: "WP plugin: LLM Toolkit", thumb: albumCover, thumbAlt: "alt text", link: "/projects"},
+        {title: "Fashion design pieces", thumb: albumCover, thumbAlt: "alt text", link: "/projects"},
     ]
 
     // banner animation
@@ -95,6 +109,30 @@ export default function Home() {
             window.removeEventListener("scroll", handleScroll)
         }
     }, [])
+
+    useEffect(() => {
+        const container = projectContainerRef.current
+        const activeItem = itemRefs.current[selectedProject]
+        if (!container || !activeItem) return
+
+        const windowCenter = window.innerWidth / 2
+        const itemCenter = activeItem.offsetLeft + activeItem.offsetWidth / 2
+        container.style.transform = `translateX(${windowCenter - itemCenter}px)`
+    }, [selectedProject])
+    useEffect(() => {
+        const handleResize = () => {
+            const container = projectContainerRef.current
+            const activeItem = itemRefs.current[selectedProject]
+            if (!container || !activeItem) return
+
+            const windowCenter = window.innerWidth / 2
+            const itemCenter = activeItem.offsetLeft + activeItem.offsetWidth / 2
+            container.style.transform = `translateX(${windowCenter - itemCenter}px)`
+        }
+
+        window.addEventListener("resize", handleResize)
+        return () => window.removeEventListener("resize", handleResize)
+    }, [selectedProject])
 
     // skills section
     const showSoft = () => {
@@ -204,22 +242,22 @@ export default function Home() {
                                 <div className="flex flex-col gap-4 p-6 text-primary">
                                     <div>
                                         <h5 className="font-instrument-serif text-2xl">Creative set</h5>
-                                        <p className="font-inter text-sm">I'm a creative set person who can come up with creative solutions and ideas.</p>
+                                        <p className="font-instrument-sans text-sm tracking-wide">I'm a creative set person who can come up with creative solutions and ideas.</p>
                                     </div>
 
                                     <div>
                                         <h5 className="font-instrument-serif text-2xl">Eager to learn</h5>
-                                        <p className="font-inter text-sm">I'm eager to learn all sorts of new things: skills, techniques, knowledge; if it helps me to become better at my work or better overall I'm willing to learn!</p>
+                                        <p className="font-instrument-sans text-sm tracking-wide">I'm eager to learn all sorts of new things: skills, techniques, knowledge; if it helps me to become better at my work or better overall I'm willing to learn!</p>
                                     </div>
 
                                     <div>
                                         <h5 className="font-instrument-serif text-2xl">Patient</h5>
-                                        <p className="font-inter text-sm">I see myself as a quite patient person. Why rush something when it's better to be thoughtful about it? Or why become restless over something I can't control?</p>
+                                        <p className="font-instrument-sans text-sm tracking-wide">I see myself as a quite patient person. Why rush something when it's better to be thoughtful about it? Or why become restless over something I can't control?</p>
                                     </div>
 
                                     <div>
                                         <h5 className="font-instrument-serif text-2xl">Independent and a team player</h5>
-                                        <p className="font-inter text-sm">I can work well independently, but I'm also able to work well in a team. I value clear communication and planning over rushing ahead.</p>
+                                        <p className="font-instrument-sans text-sm tracking-wide">I can work well independently, but I'm also able to work well in a team. I value clear communication and planning over rushing ahead.</p>
                                     </div>
 
                                     <div className="flex flex-row items-center relative">
@@ -283,15 +321,40 @@ export default function Home() {
                     <Image src={highlight} alt="highlighted projects" className="relative bottom-[50px] rotate-[-.04rad]"/>
                 </section>
 
-                <section className="flex flex-col gap-4 py-24">
-                    <div className="flex flex-row justify-center gap-4">
-                        <div className="project-start w-1/5 p-22"></div>
-                        <div className="project-middle w-1/5 p-22"></div>
-                        <div className="project-end w-1/5 p-22"></div>
+                <section className="flex flex-col items-center relative gap-4 mt-32 mb-56 pb-12 overflow-hidden">
+                    <div
+                        ref={projectContainerRef}
+                        className="flex flex-row items-center text-primary font-instrument-sans relative transition-transform duration-300 ease-in-out h-full"
+                    >
+                        {projects.map((project, index) => (
+                            <div
+                                key={index}
+                                ref={(el) => {itemRefs.current[index] = el}}
+                                className={`
+                                    ${index === 0 ? "project-start" : index === projects.length - 1 ? "project-end" : "project-middle"}
+                                    ${index === selectedProject ? "active" : ""}
+                                    cursor-pointer transition-all duration-300 ease-in-out
+                                    flex flex-col items-center
+                                `}
+                                onClick={() => setSelectedProject(index)}
+                            >
+                                <Image src={project.thumb} alt={project.thumbAlt} className="w-[200px] h-[200px] mb-2"/>
+                                <Link href={project.link}>{project.title}</Link>
+                            </div>
+                        ))}
                     </div>
 
-                    <div>
-
+                    <div className="flex flex-row gap-4 absolute bottom-0">
+                        {projects.map((_, index) => (
+                            <div
+                                key={index}
+                                className={`
+                                    ${index === selectedProject ? "bg-tertiary" : "bg-secondary"}
+                                    p-2 w-[100px] rounded-lg cursor-pointer hover:bg-tertiary transition-all duration-300
+                                `}
+                                onClick={() => setSelectedProject(index)}
+                            />
+                        ))}
                     </div>
                 </section>
             </main>
