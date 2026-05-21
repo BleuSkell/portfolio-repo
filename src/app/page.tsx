@@ -33,6 +33,7 @@ export default function Home() {
     const helloContentRef = useRef<HTMLDivElement>(null)
     const isVisible = useRef(false)
     const entryTop = useRef(0)
+    const savedProgress = useRef(0)
 
     // skills selections
     const [softSkillsVisible, setSoftSkillsVisible] = useState(true)
@@ -83,7 +84,7 @@ export default function Home() {
 
             const scrollY = window.scrollY
             const scrolled = scrollY - entryTop.current
-            const range = 400
+            const range = window.innerHeight / 2
             const progress = Math.min(Math.max(scrolled / range, 0), 1)
 
             const translateX = -Math.max(-15 + (-44 * progress), -45)
@@ -93,10 +94,12 @@ export default function Home() {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        isVisible.current = true
-                        entryTop.current = window.scrollY
-                    }, 300)
+                    isVisible.current = true
+                    entryTop.current = window.scrollY - savedProgress.current * window.innerHeight
+                } else {
+                    isVisible.current = false
+                    const scrolled = window.scrollY - entryTop.current
+                    savedProgress.current = Math.min(Math.max(scrolled / window.innerHeight, 0), 1)
                 }
             })
         }, {})
@@ -110,6 +113,7 @@ export default function Home() {
         }
     }, [])
 
+    // highlighted projects
     useEffect(() => {
         const container = projectContainerRef.current
         const activeItem = itemRefs.current[selectedProject]
@@ -117,7 +121,8 @@ export default function Home() {
 
         const windowCenter = window.innerWidth / 2
         const itemCenter = activeItem.offsetLeft + activeItem.offsetWidth / 2
-        container.style.transform = `translateX(${windowCenter - itemCenter}px)`
+        const position = (windowCenter - itemCenter) + activeItem.offsetWidth / 2
+        container.style.transform = `translateX(${position}px)`
     }, [selectedProject])
     useEffect(() => {
         const handleResize = () => {
@@ -127,7 +132,8 @@ export default function Home() {
 
             const windowCenter = window.innerWidth / 2
             const itemCenter = activeItem.offsetLeft + activeItem.offsetWidth / 2
-            container.style.transform = `translateX(${windowCenter - itemCenter}px)`
+            const position = (windowCenter - itemCenter) + activeItem.offsetWidth / 2
+            container.style.transform = `translateX(${position}px)`
         }
 
         window.addEventListener("resize", handleResize)
