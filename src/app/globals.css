@@ -5,6 +5,8 @@
   --secondary: #700606;
   --tertiary: #C40C0C;
   --black: #000000;
+  --texture: #150C0C;
+  --primary-muted: #A8A097;
   /*--breakpoint-3xl: 120rem;*/
 }
 
@@ -13,6 +15,8 @@
   --color-secondary: var(--secondary);
   --color-tertiary: var(--tertiary);
   --color-black: var(--black);
+  --color-texture: var(--texture);
+  --color-primary-muted: var(--primary-muted);
   --font-instrument-serif: var(--font-instrument-serif);
   --font-instrument-sans: var(--font-instrument-sans);
   --font-inter: var(--font-inter);
@@ -26,6 +30,8 @@
     --secondary: #700606;
     --tertiary: #C40C0C;
     --black: #000000;
+    --texture: #150C0C;
+    --primary-muted: #A8A097;
     /*--breakpoint-3xl: 120rem;*/
   }
 }
