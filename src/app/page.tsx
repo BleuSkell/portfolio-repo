@@ -8,6 +8,7 @@ import { Dot, Pause, SkipForward, SkipBack } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link";
 import "@/app/page-css/home.css"
+import arrowLinkPrimary from "public/arrow-link-primary.png"
 
 import name from "public/pages/home/SEERVS.png"
 import nameBreakCh from "public/pages/home/burnhead-temp.png"
@@ -24,6 +25,7 @@ import react from "public/pages/home/react.png"
 import laravel from "public/pages/home/laravel.png"
 import sql from "public/pages/home/sql.png"
 import digital from "public/pages/home/digital.png"
+import figma from "public/pages/home/figma.png"
 
 export default function Home() {
     // banner animation
@@ -38,21 +40,17 @@ export default function Home() {
     // skills selections
     const [softSkillsVisible, setSoftSkillsVisible] = useState(true)
     const [hardSkillsVisible, setHardSkillsVisible] = useState(false)
+    const softDotRef = useRef<HTMLDivElement>(null)
+    const softPlayedRef = useRef<HTMLHRElement>(null)
+    const softRemainderRef = useRef<HTMLHRElement>(null)
+    const hardDotRef = useRef<HTMLDivElement>(null)
+    const hardPlayedRef = useRef<HTMLHRElement>(null)
+    const hardRemainderRef = useRef<HTMLHRElement>(null)
 
     // highlighted projects
     const [selectedProject, setSelectedProject] = useState(0)
     const projectContainerRef = useRef<HTMLDivElement>(null)
     const itemRefs = useRef<(HTMLDivElement | null)[]>([])
-
-    // hard skill icons
-    const hardSkills = [
-        {src: js, alt: "Hard skill JavaScript"},
-        {src: php, alt: "Hard skill PHP"},
-        {src: react, alt: "Hard skill REACT.tsx"},
-        {src: laravel, alt: "Hard skill Laravel"},
-        {src: sql, alt: "Hard skill MySQL"},
-        {src: digital, alt: "Hard skill design, art, animation"},
-    ]
 
     // highlighted projects
     const projects = [
@@ -124,23 +122,58 @@ export default function Home() {
         const position = (windowCenter - itemCenter) + activeItem.offsetWidth / 2
         container.style.transform = `translateX(${position}px)`
     }, [selectedProject])
-    useEffect(() => {
-        const handleResize = () => {
-            const container = projectContainerRef.current
-            const activeItem = itemRefs.current[selectedProject]
-            if (!container || !activeItem) return
-
-            const windowCenter = window.innerWidth / 2
-            const itemCenter = activeItem.offsetLeft + activeItem.offsetWidth / 2
-            const position = (windowCenter - itemCenter) + activeItem.offsetWidth / 2
-            container.style.transform = `translateX(${position}px)`
-        }
-
-        window.addEventListener("resize", handleResize)
-        return () => window.removeEventListener("resize", handleResize)
-    }, [selectedProject])
 
     // skills section
+    useEffect(() => {
+        const dot = softSkillsVisible ? softDotRef.current : hardDotRef.current
+        const played = softSkillsVisible ? softPlayedRef.current : hardPlayedRef.current
+        const remainder = softSkillsVisible ? softRemainderRef.current : hardRemainderRef.current
+        if (!dot || !played || !remainder) return
+
+        const handlePlayer = () => {
+            let i = 0
+            const animate = () => {
+                if (i > 1000) {
+                    switch (softSkillsVisible) {
+                        case true:
+                            setSoftSkillsVisible(false)
+                            setHardSkillsVisible(true)
+                            break
+                        case false:
+                            setSoftSkillsVisible(true)
+                            setHardSkillsVisible(false)
+                            break
+                        default:
+                            break
+                    }
+                    setTimeout(() => {
+                        played.style.width = "0%"
+                        remainder.style.width = "100%"
+                    }, 100)
+                    return
+                }
+                const percentage = (i / 1000) * 100
+                played.style.width = `${percentage}%`
+                remainder.style.width = `${100 - percentage}%`
+                dot.style.left = `${percentage}%`
+                i++
+                requestAnimationFrame(animate)
+            }
+            animate()
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    handlePlayer()
+                }
+            })
+        })
+
+        observer.observe(dot)
+        return () => observer.disconnect()
+    }, [softSkillsVisible, hardSkillsVisible])
+
     const showSoft = () => {
         setHardSkillsVisible(false)
         setSoftSkillsVisible(true)
@@ -267,9 +300,9 @@ export default function Home() {
                                     </div>
 
                                     <div className="flex flex-row items-center relative">
-                                        <div className="bg-secondary p-2 rounded-full absolute left-2/3"/>
-                                        <hr className="w-2/3 border-tertiary rounded-lg"/>
-                                        <hr className="w-1/3 border-primary rounded-lg"/>
+                                        <div ref={softDotRef} className="bg-secondary p-2 rounded-full absolute left-2/3"/>
+                                        <hr ref={softPlayedRef} className="w-2/3 border-tertiary rounded-lg"/>
+                                        <hr ref={softRemainderRef} className="w-1/3 border-primary rounded-lg"/>
                                     </div>
                                 </div>
                             </div>
@@ -302,21 +335,71 @@ export default function Home() {
                                 </div>
 
                                 <div className="flex flex-col gap-4 p-6 text-primary w-2/3">
-                                    {hardSkills.map((skill, index) => (
-                                        <Image src={skill.src} alt={skill.alt} key={index} className="w-[100px] h-10 rounded-lg mb-2"/>
-                                    ))}
+                                    <h5 className="font-instrument-serif text-2xl">Some of my hard skills include:</h5>
+
+                                    <div className="flex flex-col gap-2">
+                                        <div className="flex flex-row items-center gap-2">
+                                            <Image src={js} alt="Hard skill JavaScript" className="w-8 rounded-lg mb-2"/>
+                                            <div>
+                                                <p className="text-sm">JavaScript</p>
+                                                <p className="text-xs text-primary-muted">Intermediate level</p>
+                                            </div>
+                                        </div>
+                                        <div className="flex flex-row items-center gap-2">
+                                            <Image src={php} alt="Hard skill PHP" className="w-8 rounded-lg mb-2"/>
+                                            <div>
+                                                <p className="text-sm">PHP</p>
+                                                <p className="text-xs text-primary-muted">Intermediate level</p>
+                                            </div>
+                                        </div>
+                                        <div className="flex flex-row items-center gap-2">
+                                            <Image src={react} alt="Hard skill REACT typescript" className="w-8 rounded-lg mb-2"/>
+                                            <div>
+                                                <p className="text-sm">REACT.tsx</p>
+                                                <p className="text-xs text-primary-muted">Intermediate level</p>
+                                            </div>
+                                        </div>
+                                        <div className="flex flex-row items-center gap-2">
+                                            <Image src={laravel} alt="Hard skill Laravel" className="w-8 rounded-lg mb-2"/>
+                                            <div>
+                                                <p className="text-sm">Laravel</p>
+                                                <p className="text-xs text-primary-muted">Intermediate level</p>
+                                            </div>
+                                        </div>
+                                        <div className="flex flex-row items-center gap-2">
+                                            <Image src={sql} alt="Hard skill MySQL/databases" className="w-8 rounded-lg mb-2"/>
+                                            <div>
+                                                <p className="text-sm">MySQL (Databases)</p>
+                                                <p className="text-xs text-primary-muted">Intermediate level</p>
+                                            </div>
+                                        </div>
+                                        <div className="flex flex-row items-center gap-2">
+                                            <Image src={digital} alt="Hard skill art: traditional, digital, animations, design" className="w-8 rounded-lg mb-2"/>
+                                            <div>
+                                                <p className="text-sm">Art</p>
+                                                <p className="text-xs text-primary-muted">Traditional, digital, animations, design</p>
+                                            </div>
+                                        </div>
+                                        <div className="flex flex-row items-center gap-2">
+                                            <Image src={figma} alt="Hard skill figma: web design, UI/UX, graphic design" className="w-8 rounded-lg mb-2"/>
+                                            <div>
+                                                <p className="text-sm">Figma</p>
+                                                <p className="text-xs text-primary-muted">Web design, UI/UX, graphic design</p>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <div className="flex flex-row items-center relative">
-                                        <div className="bg-secondary p-2 rounded-full absolute left-2/3"/>
-                                        <hr className="w-2/3 border-tertiary rounded-lg"/>
-                                        <hr className="w-1/3 border-primary rounded-lg"/>
+                                        <div ref={hardDotRef} className="bg-secondary p-2 rounded-full absolute left-2/3"/>
+                                        <hr ref={hardPlayedRef} className="w-2/3 border-tertiary rounded-lg"/>
+                                        <hr ref={hardRemainderRef} className="w-1/3 border-primary rounded-lg"/>
                                     </div>
                                 </div>
                             </div>
 
                             <Link href="/about">
                                 <button className="border border-primary rounded-full py-2 px-4 text-primary font-instrument-serif text-lg
-                                    cursor-pointer hover:border-primary-muted hover:text-primary-muted transition-all duration-300
+                                    cursor-pointer transition-all duration-300
                                 ">
                                     <span className="animated-underline">Read more about me! →</span>
                                 </button>
@@ -327,10 +410,10 @@ export default function Home() {
                     <Image src={highlight} alt="highlighted projects" className="relative bottom-[50px] rotate-[-.04rad]"/>
                 </section>
 
-                <section className="flex flex-col items-center relative gap-4 mt-32 mb-56 pb-12 overflow-hidden">
+                <section className="flex flex-col items-center gap-4 mt-32 mb-56 pb-12 overflow-hidden">
                     <div
                         ref={projectContainerRef}
-                        className="flex flex-row items-center text-primary font-instrument-sans relative transition-transform duration-300 ease-in-out h-full"
+                        className="flex flex-row items-center font-instrument-sans relative transition-transform duration-300 ease-in-out h-[400px]"
                     >
                         {projects.map((project, index) => (
                             <div
@@ -340,17 +423,24 @@ export default function Home() {
                                     ${index === 0 ? "project-start" : index === projects.length - 1 ? "project-end" : "project-middle"}
                                     ${index === selectedProject ? "active" : ""}
                                     cursor-pointer transition-all duration-300 ease-in-out
-                                    flex flex-col items-center
+                                    flex flex-col relative
                                 `}
                                 onClick={() => setSelectedProject(index)}
                             >
-                                <Image src={project.thumb} alt={project.thumbAlt} className="w-[200px] h-[200px] mb-2"/>
-                                <Link href={project.link}>{project.title}</Link>
+                                <Image src={project.thumb} alt={project.thumbAlt} className="object-cover object-center w-full h-full"/>
+                                <Link href={project.link}
+                                      className="text-left pl-4 py-2 absolute bottom-0"
+                                >
+                                    <span className="flex flex-row font-medium text-primary text-2xl animated-underline w-fit">
+                                        {project.title}
+                                        <Image src={arrowLinkPrimary} alt={project.title} className="w-8 h-8"/>
+                                    </span>
+                                </Link>
                             </div>
                         ))}
                     </div>
 
-                    <div className="flex flex-row gap-4 absolute bottom-0">
+                    <div className="flex flex-row gap-4">
                         {projects.map((_, index) => (
                             <div
                                 key={index}
