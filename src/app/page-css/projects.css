@@ -1,0 +1,32 @@
+.typewriter-text {
+    background-image: url("../../../public/pages/projects/PROJECTS.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    width: 85%;
+    height: 46%;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.typewriter-blockout {
+    background-color: #FFF2E2;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1px;
+    height: 100%;
+    width: 0;
+    border-left: 5px solid #700606;
+    animation:
+        typing .8s steps(8),
+        cursor .4s step-end infinite alternate;
+}
+
+@keyframes cursor {
+    50% { border-color: transparent }
+}
+@keyframes typing {
+    from { width: 100% }
+}
