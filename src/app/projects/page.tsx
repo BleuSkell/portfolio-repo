@@ -55,7 +55,7 @@ export default function ProjectsPage() {
             return (
                 (catVal === "all" || project.category === catVal) &&
                 (tagVal === "all" || project.tags.some(tag => tag === tagVal)) &&
-                (searchVal === "" || project.name.toLowerCase().includes(searchVal?.toLowerCase()))
+                (searchVal === "" || project.name.toLowerCase().includes((searchVal || "").toLowerCase()))
             )
         })
 
@@ -79,7 +79,7 @@ export default function ProjectsPage() {
             <Nav/>
 
             <main>
-                <section className="flex flex-col items-center justify-center" style={{height: "100vh"}}>
+                <section className="flex flex-col items-center justify-center h-screen">
                     <div className="typewriter-text relative">
                         <span className={`${shouldAnimate ? "typewriter-blockout" : ""}`}/>
                     </div>

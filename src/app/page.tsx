@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from "react"
 import Nav from "@/components/nav"
 import Footer from "@/components/footer"
 
-import { Dot, Pause, SkipForward, SkipBack } from "lucide-react"
+import { Dot, Pause, SkipForward, SkipBack, Scale } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link";
 import "@/app/page-css/home.css"
@@ -191,16 +191,16 @@ export default function Home() {
                 <section className={`${shouldAnimate ? "translate-x-0" : "translate-x-[-100%]"}
                     flex items-center h-screen overflow-hidden transition-transform duration-300
                 `}>
-                    <Image src={name} alt="SEERVS"/>
-                    <Image src={nameBreakCh} alt="name break character"/>
+                    <Image src={name} alt="SEERVS" className="w-275"/>
+                    <Image src={nameBreakCh} alt="name break character" className="w-150"/>
                 </section>
 
                 <section className="flex justify-end relative px-26">
                     <div className="flex items-center absolute" ref={helloContentRef} style={{ transform: "translateX(-15%)" }}>
-                        <div className="flex flex-col gap-2 text-right bg-primary py-38 pr-12">
+                        <div className="flex flex-col items-end gap-2 text-right bg-primary py-38 pr-12">
                             <h3 className="font-shrikhand text-secondary text-4xl">Hello, kipije kabare?</h3>
-                            <p className="font-instrument-serif text-xl">I’m Seervs, I’m a third year Software Development student based in the Netherlands. I’m self-taught in both art and the music that I make.</p>
-                            <p className="font-instrument-serif text-xl">I love art, music, history, and a bit of fashion. I often try to combine all of my interests in one to create something that I like.</p>
+                            <p className="font-instrument-serif text-xl w-2/3">I’m Seervs, I’m a third year Software Development student based in the Netherlands. I’m self-taught in both art and the music that I make.</p>
+                            <p className="font-instrument-serif text-xl w-2/3">I love art, music, history, and a bit of fashion. I often try to combine all of my interests in one to create something that I like.</p>
                         </div>
 
                         <Image src={helloChHand} alt=""/>
@@ -209,7 +209,7 @@ export default function Home() {
                     <Image src={helloCh} alt=""/>
                 </section>
 
-                <section className="flex flex-col overflow-hidden">
+                <section className="flex flex-col overflow-hidden pb-32">
                     <div className="vector-slope"/>
                     <div className="flex flex-row justify-evenly bg-secondary pt-42 pb-52 relative">
                         <div className="flex flex-col gap-4 bg-texture-op8 p-4 rounded-lg w-fit drop-shadow-gray-900 drop-shadow-md">
@@ -406,8 +406,16 @@ export default function Home() {
                             </Link>
                         </div>
                     </div>
+
                     <div className="vector-trapezoid"/>
-                    <Image src={highlight} alt="highlighted projects" className="relative bottom-[50px] rotate-[-.04rad]"/>
+
+                    <h1 
+                        className="text-secondary font-inter font-bold tracking-tight
+                        relative rotate-[-.04rad] left-12"
+                        style={{transform: "scale(1.07, 3)", fontSize: "9rem"}}
+                    >
+                        HIGHTLIGHTED PROJECTS
+                    </h1>
                 </section>
 
                 <section className="flex flex-col items-center gap-4 mt-32 mb-56 pb-12 overflow-hidden">
