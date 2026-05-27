@@ -1,0 +1,18 @@
+.vector {
+    position: relative;
+    transform: translateY(28%);
+    width: 100%;
+    height: 800px;
+    background-color: #700606;
+    clip-path: path("M 0,790 Q 680,600 850,0 Q 1100,760 1920,760 L 1920,800 L 0,800 Z");
+    animation: slide 300ms;
+}
+
+@keyframes slide {
+    0% {
+        clip-path: path("M 0,790 Q 680,600 850,400 Q 1100,760 1920,760 L 1920,800 L 0,800 Z");
+    }
+    100% {
+        clip-path: path("M 0,790 Q 680,600 850,0 Q 1100,760 1920,760 L 1920,800 L 0,800 Z");
+    }
+}

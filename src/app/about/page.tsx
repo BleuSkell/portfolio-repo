@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "@/app/page-css/about.css"
 
 import Nav from "@/components/nav";
@@ -71,13 +71,13 @@ export default function AboutPage() {
             <Nav/>
 
             <main>
-                <section className="flex flex-col items-center justify-center relative h-screen overflow-hidden">
-                    <Image src={about} alt="About me" className="relative bottom-20"/>
+                <section className="flex flex-col items-center justify-center mt-42 mb-56 relative">
+                    <Image src={about} alt="About me" className="relative"/>
                     <Image
                         src={akiraSlide} 
                         alt="Akira slide"
-                        className={`${shouldAnimate ? "translate-y-30" : "translate-y-[100%]"}
-                            absolute transition-transform duration-300
+                        className={`${shouldAnimate ? "translate-y-[-35%]" : "translate-y-[100%]"}
+                            absolute transition-transform duration-300 z-5
                         `}
                     />
                     <div className="vector"/>
@@ -152,6 +152,17 @@ export default function AboutPage() {
                         </div>
 
                         <hr className="p-[1px] rounded-lg bg-primary w-full"/>
+                    </div>
+
+                    <div className="flex flex-col w-3/4">
+                        <div className="text-center">
+                            <h3 className="font-shrikhand text-primary text-3xl mb-4">Experience</h3>
+                            <p className="font-instrument-sans text-primary">
+                                Besides my work experience, which usually have clear start- and end dates, I've also picked up a few projects, 
+                                both for clients and personal which helped me improve on my skills. These projects include art commissions; 
+                                songs; fashion, where I designed and made clothing pieces; and coding, building tons of applications and websites.
+                            </p>
+                        </div>
                     </div>
                 </section>
             </main>
