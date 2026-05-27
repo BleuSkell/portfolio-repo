@@ -40,7 +40,7 @@ export default function ContactPage() {
                         </div>
                     </div>
 
-                    <form action="/" method="POST" className="flex flex-col gap-2 bg-secondary p-4 rounded-lg text-primary w-1/3">
+                    <form action="/" method="POST" className="flex flex-col gap-2 bg-secondary p-4 rounded-lg text-primary w-1/3 drop-shadow-xl">
                         <label htmlFor="fullname" className="text-instrument-sans">Full name:</label>
                         <input type="text" name="fullname" id="fullname" className="bg-primary p-2 rounded-md"/>
 
