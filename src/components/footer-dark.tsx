@@ -1,0 +1,164 @@
+import Link from "next/link"
+import Image from "next/image"
+import "@/components/components-css/animated-underline.css"
+
+import arrowLink from "public/arrow-link-light.png"
+import label from "public/label-light.png"
+import github from "public/social/github-light.png"
+import instagram from "public/social/instagram.png"
+import youtube from "public/social/youtube.png"
+import linkedin from "public/social/linkedin.png"
+
+export default function FooterDark() {
+    return (
+        <>
+            {/* Mobile footer */}
+            <footer className="sm:hidden lg:hidden flex flex-col gap-4 p-4 font-instrument-serif bg-secondary">
+                <div className="flex flex-col">
+                    <h3 className="text-primary text-2xl">Did you have something in mind?</h3>
+
+                    <Link href="/contact" className="flex flex-row gap-2">
+                        <h1 className="text-primary text-8xl leading-[85%]">Let's talk!</h1>
+                        <Image src={arrowLink} alt="arrow link" className="w-13 h-13 relative left-[-15px] top-[-10px]"/>
+                    </Link>
+
+                    <div className="flex gap-4 font-instrument-sans mt-2 text-primary">
+                        <Link href="https://github.com/BleuSkell" target="_blank" className="flex items-center gap-2">
+                            <Image src={github} alt="github logo" className="w-7 h-7"/>
+                            <p className="hover:text-primary-muted transition-all duration-200">BleuSkell</p>
+                        </Link>
+
+                        <Link href="https://instagram.com/seervska" target="_blank" className="flex items-center gap-2">
+                            <Image src={instagram} alt="instagram logo" className="w-7 h-7"/>
+                            <p className="hover:text-primary-muted transition-all duration-200">@seervska</p>
+                        </Link>
+
+                        <Link href="https://youtube.com/@SEERVS" target="_blank" className="flex items-center gap-2">
+                            <Image src={youtube} alt="youtube logo" className="w-7 h-7"/>
+                            <p className="hover:text-primary-muted transition-all duration-200">@SEERVS</p>
+                        </Link>
+                    </div>
+                </div>
+
+                <div className="flex flex-row justify-between">
+                    <div className="flex flex-col gap-1 text-primary">
+                        <h3 className="text-2xl">Explore</h3>
+
+                        <Link href="/" className="text-xl animated-underline w-fit">
+                            Home
+                        </Link>
+                        <Link href="/projects" className="text-xl animated-underline w-fit">
+                            Projects
+                        </Link>
+                        <Link href="/about" className="text-xl animated-underline w-fit">
+                            About
+                        </Link>
+                        <Link href="/contact" className="text-xl animated-underline w-fit">
+                            Contact
+                        </Link>
+                    </div>
+
+                    <Image src={label} alt="Seervs label" className="align-bottom w-fit h-30"/>
+                </div>
+            </footer>
+
+            {/* Tablet footer */}
+            <footer className="hidden lg:hidden sm:flex flex-row justify-between p-4 font-instrument-serif bg-secondary">
+                <div className="flex flex-col">
+                    <h3 className="text-primary text-2xl">Did you have something in mind?</h3>
+
+                    <Link href="/contact" className="flex flex-row gap-2">
+                        <h1 className="text-primary text-[10rem] leading-[85%]">Let's talk!</h1>
+                        <Image src={arrowLink} alt="arrow link" className="w-13 h-13 relative left-[-15px] top-[-10px]"/>
+                    </Link>
+
+                    <div className="flex gap-4 font-instrument-sans text-primary">
+                        <Link href="https://github.com/BleuSkell" target="_blank" className="flex items-center gap-2">
+                            <Image src={github} alt="github logo" className="w-8 h-8"/>
+                            <p className="hover:text-primary-muted transition-all duration-200">BleuSkell</p>
+                        </Link>
+
+                        <Link href="https://instagram.com/seervska" target="_blank" className="flex items-center gap-2">
+                            <Image src={instagram} alt="instagram logo" className="w-8 h-8"/>
+                            <p className="hover:text-primary-muted transition-all duration-200">@seervska</p>
+                        </Link>
+
+                        <Link href="https://youtube.com/@SEERVS" target="_blank" className="flex items-center gap-2">
+                            <Image src={youtube} alt="youtube logo" className="w-8 h-8"/>
+                            <p className="hover:text-primary-muted transition-all duration-200">@SEERVS</p>
+                        </Link>
+                    </div>
+                </div>
+
+                <div className="flex flex-col justify-between">
+                    <div className="flex flex-col gap-4 text-primary">
+                        <h3 className="text-2xl">Explore</h3>
+                        <Link href="/" className="text-xl animated-underline w-fit">
+                            Home
+                        </Link>
+                        <Link href="/projects" className="text-xl animated-underline w-fit">
+                            Projects
+                        </Link>
+                        <Link href="/about" className="text-xl animated-underline w-fit">
+                            About
+                        </Link>
+                        <Link href="/contact" className="text-xl animated-underline w-fit">
+                            Contact
+                        </Link>
+                    </div>
+
+                    <Image src={label} alt="Seervs label" className="align-bottom w-fit h-30"/>
+                </div>
+            </footer>
+
+            {/* Desktop footer */}
+            <footer className="hidden lg:flex flex-row justify-between p-12 font-instrument-serif bg-secondary">
+                <div className="flex flex-col">
+                    <h3 className="text-primary text-4xl">Did you have something in mind?</h3>
+
+                    <Link href="/contact" className="flex flex-row gap-2">
+                        <h1 className="text-primary text-[25rem] leading-[85%]">Let's talk!</h1>
+                        <Image src={arrowLink} alt="arrow link" className="w-30 h-30 relative left-[-20px] top-[-20px]"/>
+                    </Link>
+
+                    <div className="flex gap-6 font-instrument-sans text-primary">
+                        <Link href="https://github.com/BleuSkell" target="_blank" className="flex items-center gap-2">
+                            <Image src={github} alt="github logo"/>
+                            <p className="hover:text-primary-muted transition-all duration-200">BleuSkell</p>
+                        </Link>
+
+                        <Link href="https://instagram.com/seervska" target="_blank" className="flex items-center gap-2">
+                            <Image src={instagram} alt="instagram logo"/>
+                            <p className="hover:text-primary-muted transition-all duration-200">@seervska</p>
+                        </Link>
+
+                        <Link href="https://youtube.com/@SEERVS" target="_blank" className="flex items-center gap-2">
+                            <Image src={youtube} alt="youtube logo"/>
+                            <p className="hover:text-primary-muted transition-all duration-200">@SEERVS</p>
+                        </Link>
+                    </div>
+                </div>
+
+                <div className="flex flex-col justify-between">
+                    <div className="flex flex-col gap-4 text-primary">
+                        <h3 className="text-4xl">Explore</h3>
+                        <Link href="/" className="text-2xl animated-underline w-fit">
+                            Home
+                        </Link>
+                        <Link href="/projects" className="text-2xl animated-underline w-fit">
+                            Projects
+                        </Link>
+                        <Link href="/about" className="text-2xl animated-underline w-fit">
+                            About
+                        </Link>
+                        <Link href="/contact" className="text-2xl animated-underline w-fit">
+                            Contact
+                        </Link>
+                    </div>
+
+                    <Image src={label} alt="Seervs label" className="align-bottom w-full h-35"/>
+                </div>
+            </footer>
+        </>
+    )
+}
