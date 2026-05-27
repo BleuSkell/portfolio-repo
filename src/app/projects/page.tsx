@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 
 import Nav from "@/components/nav"
 import Footer from "@/components/footer"
@@ -9,7 +9,6 @@ import "@/app/page-css/projects.css"
 import Image from "next/image"
 import star from "public/star.png"
 import arrowLink from "public/arrow-link.png"
-import searchIcon from "public/search-icon.png"
 import searchChar from "public/pages/projects/temp-search.png"
 
 import project from "public/pages/projects/temp-project.jpg"

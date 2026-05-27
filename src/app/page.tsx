@@ -1,10 +1,10 @@
 "use client"
 
-import React, { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef } from "react"
 import Nav from "@/components/nav"
 import Footer from "@/components/footer"
 
-import { Dot, Pause, SkipForward, SkipBack, Scale } from "lucide-react"
+import { Dot, Pause, SkipForward, SkipBack } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link";
 import "@/app/page-css/home.css"
@@ -17,7 +17,6 @@ import helloChHand from "public/pages/home/character-hand-temp.png"
 import aboutCh from "public/pages/home/tv-head temp.png"
 import albumCover from "public/pages/home/album-cover-temp.jpg"
 import queue from "public/pages/home/queue.png"
-import highlight from "public/pages/home/highlighted-projects.png"
 
 import js from "public/pages/home/js.png"
 import php from "public/pages/home/php.png"
